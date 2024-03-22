@@ -81,12 +81,12 @@ export default function Home() {
         <div className="bg-divback min-h-40 w-1/3 rounded-lg text-white flex flex-col justify-center items-center m-5">
         <div className="text-xl font-bold">User entries</div>
           {users.map((user) => (
-            <div className="p-10">
-            <div className="text-white " key={user.id}>
+            <div className="p-10" key={user.id}>
+            <div className="text-white " >
               {user.msg}
               
             </div>
-            <div className="text-white " key={user.id}>
+            <div className="text-white ">
               {user.time}
               
             </div>
@@ -96,14 +96,14 @@ export default function Home() {
         <div className="bg-divback min-h-40 w-1/3 rounded-lg text-white flex flex-col justify-center items-center m-5">
         <div className="text-xl font-bold">Flame data</div>
           {flame.map((flame) => (
-            <div className="p-10">
-            <div className="text-white " key={flame.id}>
+            <div className="p-10" key={flame.id}>
+            <div className="text-white " >
               {flame.msg}
 
               
                
             </div>
-              <div className="text-white " key={flame.id}>
+              <div className="text-white " >
               {flame.time}
 
               
@@ -116,12 +116,12 @@ export default function Home() {
         <div className="bg-divback min-h-40 w-1/3 rounded-lg text-white flex flex-col justify-center items-center m-5 ">
           <div className="text-xl font-bold">Gas data</div>
           {gas.map((gas) => (
-            <div className="p-10">
-            <div className="text-white " key={gas.id}>
+            <div className="p-10" key={gas.id}>
+            <div className="text-white " >
               {gas.msg}
               
             </div>
-            <div className="text-white " key={gas.id}>
+            <div className="text-white " >
               {gas.time}
               
             </div>
