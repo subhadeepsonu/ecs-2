@@ -3,6 +3,48 @@ import { get, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { database } from "@/firebase-config";
 
+
+// function decryptMessage(encryptedMessageBase64, key) {
+//     // Base64 decoded encrypted message
+//     const encryptedMessage = Buffer.from(encryptedMessageBase64, 'base64').toString('binary');
+
+//     // Convert the key to binary
+//     const keyBinary = Buffer.from(key, 'binary');
+
+//     // Extract IV from the beginning of the message
+//     const iv = encryptedMessage.slice(0, 16);
+
+//     // Extract ciphertext after the IV
+//     const ciphertext = encryptedMessage.slice(16);
+
+//     // Convert key and IV to Forge buffers
+//     const forgeKey = forge.util.createBuffer(keyBinary, 'binary');
+//     const forgeIv = forge.util.createBuffer(iv, 'binary');
+
+//     // Create decipher object with AES-CBC algorithm
+//     const decipher = forge.cipher.createDecipher('AES-CBC', forgeKey);
+
+//     // Set IV
+//     decipher.start({ iv: forgeIv });
+
+//     // Update decipher with ciphertext
+//     decipher.update(forge.util.createBuffer(ciphertext, 'binary'));
+
+//     // Finalize decryption
+//     decipher.finish();
+
+//     // Get the decrypted message
+//     const decryptedMessage = decipher.output.toString();
+
+//     return decryptedMessage;
+// }
+
+// Example usage
+// const encryptedMessageBase64 = "YOUR_ENCRYPTED_MESSAGE_HERE";
+// const key = "saptasagaralu";
+// const decryptedMessage = decryptMessage(encryptedMessageBase64, key);
+// console.log("Decrypted Message:", decryptedMessage);
+
 export default function Home() {
   const [users, setUsers] = useState([]);
   const [flame, setflame] = useState([]);
@@ -84,11 +126,9 @@ export default function Home() {
             <div className="p-10" key={user.id}>
             <div className="text-white " >
               {user.msg}
-              
             </div>
             <div className="text-white ">
               {user.time}
-              
             </div>
             </div>
           ))}

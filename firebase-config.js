@@ -1,21 +1,22 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAnalytics } from "firebase/analytics";
+import { getDatabase } from "firebase/database"; // Add this import statement
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA9cqoYcRh4nBf1isZMTq_9AFkalMaq860",
-  authDomain: "ecs-2-83019.firebaseapp.com",
-  databaseURL: "https://ecs-2-83019-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "ecs-2-83019",
-  storageBucket: "ecs-2-83019.appspot.com",
-  messagingSenderId: "965385235187",
-  appId: "1:965385235187:web:45f82fa333e72e6c78e586"
+  apiKey: "AIzaSyC3G-t5zDnJzQxmxOrevkUipz7XgHB0Y_c",
+  authDomain: "ecs-2-871ec.firebaseapp.com",
+  databaseURL: "https://ecs-2-871ec-default-rtdb.firebaseio.com",
+  projectId: "ecs-2-871ec",
+  storageBucket: "ecs-2-871ec.appspot.com",
+  messagingSenderId: "559173922912",
+  appId: "1:559173922912:web:2289577988d1cadabf5305",
+  measurementId: "G-0J2LLR11WR"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app)
-export {database}
+const analytics = getAnalytics(app);
+const database = getDatabase(app);
+export { database };
