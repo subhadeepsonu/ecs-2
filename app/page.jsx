@@ -2,48 +2,23 @@
 import { get, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { database } from "@/firebase-config";
-
-
-// function decryptMessage(encryptedMessageBase64, key) {
-//     // Base64 decoded encrypted message
-//     const encryptedMessage = Buffer.from(encryptedMessageBase64, 'base64').toString('binary');
-
-//     // Convert the key to binary
-//     const keyBinary = Buffer.from(key, 'binary');
-
-//     // Extract IV from the beginning of the message
-//     const iv = encryptedMessage.slice(0, 16);
-
-//     // Extract ciphertext after the IV
-//     const ciphertext = encryptedMessage.slice(16);
-
-//     // Convert key and IV to Forge buffers
-//     const forgeKey = forge.util.createBuffer(keyBinary, 'binary');
-//     const forgeIv = forge.util.createBuffer(iv, 'binary');
-
-//     // Create decipher object with AES-CBC algorithm
-//     const decipher = forge.cipher.createDecipher('AES-CBC', forgeKey);
-
-//     // Set IV
-//     decipher.start({ iv: forgeIv });
-
-//     // Update decipher with ciphertext
-//     decipher.update(forge.util.createBuffer(ciphertext, 'binary'));
-
-//     // Finalize decryption
-//     decipher.finish();
-
-//     // Get the decrypted message
-//     const decryptedMessage = decipher.output.toString();
-
-//     return decryptedMessage;
-// }
-
-// Example usage
-// const encryptedMessageBase64 = "YOUR_ENCRYPTED_MESSAGE_HERE";
-// const key = "saptasagaralu";
-// const decryptedMessage = decryptMessage(encryptedMessageBase64, key);
-// console.log("Decrypted Message:", decryptedMessage);
+function caesarDecrypt(encryptedText, shift) {
+  let result = "";
+  for (let i = 0; i < encryptedText.length; i++) {
+      let char = encryptedText[i];
+      if (char.match(/[a-z]/i)) {
+          let code = encryptedText.charCodeAt(i);
+          if (code >= 65 && code <= 90) {
+              char = String.fromCharCode(((code - 65 - shift + 26) % 26) + 65);
+          }
+      else if (code >= 97 && code <= 122) {
+              char = String.fromCharCode(((code - 97 - shift + 26) % 26) + 97);
+          }
+      }
+      result += char;
+  }
+  return result;
+}
 
 export default function Home() {
   const [users, setUsers] = useState([]);
@@ -58,11 +33,11 @@ export default function Home() {
         if (snapshot.exists()) {
           const userArray = Object.entries(snapshot.val()).map(([id, data]) => ({
             id,
-            ...data // Spread the data object to include all properties
+            ...data 
           }));
           setUsers(userArray);
         } else {
-          setUsers([]); // No data found, reset users state
+          setUsers([]);
         }
       })
       .catch((error) => {
@@ -77,11 +52,11 @@ export default function Home() {
         if (snapshot.exists()) {
           const flameArray = Object.entries(snapshot.val()).map(([id, data]) => ({
             id,
-            ...data // Spread the data object to include all properties
+            ...data 
           }));
           setflame(flameArray);
         } else {
-          setflame([]); // No data found, reset users state
+          setflame([]); 
         }
       })
       .catch((error) => {
@@ -96,11 +71,11 @@ export default function Home() {
         if (snapshot.exists()) {
           const gasArray = Object.entries(snapshot.val()).map(([id, data]) => ({
             id,
-            ...data // Spread the data object to include all properties
+            ...data 
           }));
           setgas(gasArray);
         } else {
-          setgas([]); // No data found, reset users state
+          setgas([]); 
         }
       })
       .catch((error) => {
@@ -108,27 +83,24 @@ export default function Home() {
         setError(error);
       });
   }, []);
-
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
   return (
     <div className="bg-back min-h-screen">
       <div className="h-20 bg-gray-800 font-bold flex justify-center items-center text-white text-3xl">
         ECS-2
       </div>
-      \
       <div className="flex justify-around items-start p-10">
         <div className="bg-divback min-h-40 w-1/3 rounded-lg text-white flex flex-col justify-center items-center m-5">
         <div className="text-xl font-bold">User entries</div>
           {users.map((user) => (
             <div className="p-10" key={user.id}>
             <div className="text-white " >
-              {user.msg}
+            {caesarDecrypt(user.msg, 3)}
             </div>
             <div className="text-white ">
-              {user.time}
+            {caesarDecrypt(user.time, 3)}
             </div>
             </div>
           ))}
@@ -138,19 +110,12 @@ export default function Home() {
           {flame.map((flame) => (
             <div className="p-10" key={flame.id}>
             <div className="text-white " >
-              {flame.msg}
-
-              
-               
+            {caesarDecrypt(flame.msg, 3)}
             </div>
               <div className="text-white " >
-              {flame.time}
-
-              
-               
+            {caesarDecrypt(flame.time, 3)}
             </div>
             </div>
-
           ))}
         </div>
         <div className="bg-divback min-h-40 w-1/3 rounded-lg text-white flex flex-col justify-center items-center m-5 ">
@@ -158,18 +123,16 @@ export default function Home() {
           {gas.map((gas) => (
             <div className="p-10" key={gas.id}>
             <div className="text-white " >
-              {gas.msg}
+            {caesarDecrypt(gas.msg, 3)}
               
             </div>
             <div className="text-white " >
-              {gas.time}
+            {caesarDecrypt(gas.time, 3)}
               
             </div>
             </div>
           ))}
         </div>
-        
-      
       </div>
     </div>
   );
